@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "/proto";
+
+service Greeter {
+	rpc Hello(Request) returns (Response) {}
+	rpc Goodbye(GoodbyeRequest) returns (GoodbyeResponse) {}
+  }
+  
+  message Request {
+	string name = 1;
+  }
+  
+  message Response {
+	string msg = 1;
+  }
+  
+  message GoodbyeRequest {
+	string name = 1;
+  }
+  
+  message GoodbyeResponse {
+	string msg = 1;
+	bool farewell = 2;
+  }
