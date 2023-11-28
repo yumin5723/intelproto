@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 package intelproto;
-option go_package = "/proto";
+option go_package = "/greeter";
 
 service Greeter {
 	rpc Hello(Request) returns (Response) {}
