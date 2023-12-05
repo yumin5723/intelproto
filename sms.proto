@@ -11,8 +11,7 @@ service Sms {
   message SmsRequest {
     string area_code = 1;
 	  string phone = 2;
-    int32 type = 3;
-    string secret = 4;
+    string type = 3;
   }
   
   message SmsResponse {
@@ -22,7 +21,7 @@ service Sms {
   message ValidSmsRequest {
     string area_code = 1;
 	string phone = 2;
-    int32 type = 3;
+    string type = 3;
     string code = 4;
 }
 
