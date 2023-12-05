@@ -4,18 +4,18 @@ package intelproto;
 option go_package = "/sms";
 
 service Sms {
-	rpc SendSms(SmsRequest) returns (Response) {}
-    rpc ValidSms(ValidSmsRequest) returns (ValidResponse) {}
+	rpc SendSms(SmsRequest) returns (SmsResponse) {}
+    rpc ValidSms(ValidSmsRequest) returns (ValidSmsResponse) {}
   }
   
   message SmsRequest {
     string area_code = 1;
-	string phone = 2;
+	  string phone = 2;
     int32 type = 3;
     string secret = 4;
   }
   
-  message Response {
+  message SmsResponse {
 	string msg = 1;
   }
 
@@ -26,6 +26,6 @@ service Sms {
     string code = 4;
 }
 
-message ValidResponse {
+message ValidSmsResponse {
     bool result = 1;
 }

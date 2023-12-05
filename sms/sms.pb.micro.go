@@ -36,8 +36,8 @@ func NewSmsEndpoints() []*api.Endpoint {
 // Client API for Sms service
 
 type SmsService interface {
-	SendSms(ctx context.Context, in *SmsRequest, opts ...client.CallOption) (*Response, error)
-	ValidSms(ctx context.Context, in *ValidSmsRequest, opts ...client.CallOption) (*ValidResponse, error)
+	SendSms(ctx context.Context, in *SmsRequest, opts ...client.CallOption) (*SmsResponse, error)
+	ValidSms(ctx context.Context, in *ValidSmsRequest, opts ...client.CallOption) (*ValidSmsResponse, error)
 }
 
 type smsService struct {
@@ -52,9 +52,9 @@ func NewSmsService(name string, c client.Client) SmsService {
 	}
 }
 
-func (c *smsService) SendSms(ctx context.Context, in *SmsRequest, opts ...client.CallOption) (*Response, error) {
+func (c *smsService) SendSms(ctx context.Context, in *SmsRequest, opts ...client.CallOption) (*SmsResponse, error) {
 	req := c.c.NewRequest(c.name, "Sms.SendSms", in)
-	out := new(Response)
+	out := new(SmsResponse)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
 		return nil, err
@@ -62,9 +62,9 @@ func (c *smsService) SendSms(ctx context.Context, in *SmsRequest, opts ...client
 	return out, nil
 }
 
-func (c *smsService) ValidSms(ctx context.Context, in *ValidSmsRequest, opts ...client.CallOption) (*ValidResponse, error) {
+func (c *smsService) ValidSms(ctx context.Context, in *ValidSmsRequest, opts ...client.CallOption) (*ValidSmsResponse, error) {
 	req := c.c.NewRequest(c.name, "Sms.ValidSms", in)
-	out := new(ValidResponse)
+	out := new(ValidSmsResponse)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
 		return nil, err
@@ -75,14 +75,14 @@ func (c *smsService) ValidSms(ctx context.Context, in *ValidSmsRequest, opts ...
 // Server API for Sms service
 
 type SmsHandler interface {
-	SendSms(context.Context, *SmsRequest, *Response) error
-	ValidSms(context.Context, *ValidSmsRequest, *ValidResponse) error
+	SendSms(context.Context, *SmsRequest, *SmsResponse) error
+	ValidSms(context.Context, *ValidSmsRequest, *ValidSmsResponse) error
 }
 
 func RegisterSmsHandler(s server.Server, hdlr SmsHandler, opts ...server.HandlerOption) error {
 	type sms interface {
-		SendSms(ctx context.Context, in *SmsRequest, out *Response) error
-		ValidSms(ctx context.Context, in *ValidSmsRequest, out *ValidResponse) error
+		SendSms(ctx context.Context, in *SmsRequest, out *SmsResponse) error
+		ValidSms(ctx context.Context, in *ValidSmsRequest, out *ValidSmsResponse) error
 	}
 	type Sms struct {
 		sms
@@ -95,10 +95,10 @@ type smsHandler struct {
 	SmsHandler
 }
 
-func (h *smsHandler) SendSms(ctx context.Context, in *SmsRequest, out *Response) error {
+func (h *smsHandler) SendSms(ctx context.Context, in *SmsRequest, out *SmsResponse) error {
 	return h.SmsHandler.SendSms(ctx, in, out)
 }
 
-func (h *smsHandler) ValidSms(ctx context.Context, in *ValidSmsRequest, out *ValidResponse) error {
+func (h *smsHandler) ValidSms(ctx context.Context, in *ValidSmsRequest, out *ValidSmsResponse) error {
 	return h.SmsHandler.ValidSms(ctx, in, out)
 }
