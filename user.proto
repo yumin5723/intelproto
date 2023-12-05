@@ -1,5 +1,5 @@
 syntax = "proto3";
-
+import "google/protobuf/timestamp.proto";
 package intelproto;
 option go_package = "/user";
 
@@ -12,7 +12,10 @@ message LoginRequest {
 }
 
 message LoginResponse {
-    string token = 1;
+    string phone = 1;
+    string username = 2;
+    int32 uid = 3;
+    google.protobuf.Timestamp register_time = 4;
 }
   
   
