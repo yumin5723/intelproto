@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package intelproto;
+option go_package = "/user";
+
+service User {
+	rpc Login(LoginRequest) returns (LoginResponse) {}
+}
+
+message LoginRequest {
+    string phone = 1;
+}
+
+message LoginResponse {
+    string token = 1;
+}
+  
+  
